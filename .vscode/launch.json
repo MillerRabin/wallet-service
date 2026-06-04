@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch wallet-service",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/server",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "CGO_ENABLED": "1",
+        "CGO_CFLAGS": "-I${workspaceFolder}/.trustwallet-core/include",
+        "CGO_LDFLAGS": "-L${workspaceFolder}/.trustwallet-core/build -L${workspaceFolder}/.trustwallet-core/build/local/lib -L${workspaceFolder}/.trustwallet-core/build/trezor-crypto -lTrustWalletCore -lwallet_core_rs -lTrezorCrypto -lprotobuf -lprotobuf-lite -lstdc++ -lpthread -ldl -lm"
+      }
+    }
+  ]
+}
