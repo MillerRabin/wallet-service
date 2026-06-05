@@ -1,10 +1,10 @@
 package trustwalletcore
 
 type SignTxRequest struct {
-	Gate         string
-	Account      uint32
-	Change       uint32
-	AddressIndex uint32
+	Gate         						string
+	Account      						uint32
+	Change       						uint32
+	AddressIndex 						uint32
 	To                      string
 	ValueWei                string
 	Data                    string

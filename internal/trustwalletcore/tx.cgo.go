@@ -13,6 +13,7 @@ import "C"
 
 import (
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"math/big"
 	"strings"
@@ -79,8 +80,8 @@ func signEthereumTx(
 		return "", "", err
 	}
 
-	if output.Error != 0 {
-		return "", "", fmt.Errorf(output.ErrorMessage)
+	if output.Error != 0 {		
+		return "", "", errors.New(output.ErrorMessage)
 	}
 
 	txHash := "0x" + hex.EncodeToString(output.PreHash)

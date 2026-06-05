@@ -2,12 +2,12 @@ TRUSTWALLETCORE_IMAGE=trustwalletcore
 TRUSTWALLETCORE_DIR=deps/trustwalletcore
 PROJECT_ROOT := $(PWD)
 
-CGO_CFLAGS := -I$(PROJECT_ROOT)/.trustwallet-core/include
+CGO_CFLAGS := -I$(PROJECT_ROOT)/deps/trustwalletcore/include
 
 CGO_LDFLAGS := \
--L$(PROJECT_ROOT)/.trustwallet-core/build \
--L$(PROJECT_ROOT)/.trustwallet-core/build/local/lib \
--L$(PROJECT_ROOT)/.trustwallet-core/build/trezor-crypto \
+-L$(PROJECT_ROOT)/deps/trustwalletcore/build \
+-L$(PROJECT_ROOT)/deps/trustwalletcore/build/local/lib \
+-L$(PROJECT_ROOT)/deps/trustwalletcore/build/trezor-crypto \
 -lTrustWalletCore \
 -lwallet_core_rs \
 -lTrezorCrypto \
@@ -56,7 +56,7 @@ run:
 	go run ./cmd/server
 
 .PHONY: test
-test:
+test:	
 	go test ./... -v
 
 .PHONY: test-race
