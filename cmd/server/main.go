@@ -28,8 +28,13 @@ func main() {
 		gates,
 	)
 
+	transactionService := service.NewTransactionService(
+		gates,
+	)
+
 	handler := api.NewHandler(
 		addressService,
+		transactionService,
 	)
 
 	mux := http.NewServeMux()

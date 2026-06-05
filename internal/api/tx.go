@@ -2,9 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"net/http"
-
-	"wallet-service/internal/service"
+	"net/http"	
 	"wallet-service/internal/dto"
 	"wallet-service/internal/trustwalletcore"
 )
@@ -27,12 +25,10 @@ func (h *Handler) SignTx(
 		return
 	}
 
-	// use a pointer receiver for TransactionService
-	svc := &service.TransactionService{}
 
 	txHash,
 	signedTx,
-	err := svc.
+	err := h.transactionService.
 		SignEthereumTx(
 			trustwalletcore.SignTxRequest{
 				Gate:         req.Gate,

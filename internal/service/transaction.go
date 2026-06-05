@@ -1,13 +1,16 @@
 package service
 
-import "wallet-service/internal/trustwalletcore"
+import (
+	"wallet-service/internal/gate"
+	"wallet-service/internal/trustwalletcore"
+)
 
 type TransactionService struct {
-	gates *GateManager
+	gates *gate.Manager
 }
 
 func NewTransactionService(
-	gates *GateManager,
+	gates *gate.Manager,
 ) *TransactionService {
 	return &TransactionService{
 		gates: gates,
