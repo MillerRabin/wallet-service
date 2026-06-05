@@ -40,9 +40,14 @@ func main() {
 	)
 
 	mux.HandleFunc(
-	"POST /api/v1/validateaddress",
-	handler.ValidateAddress,
-)
+		"POST /api/v1/validateaddress",
+		handler.ValidateAddress,
+	)
+
+	mux.HandleFunc(
+		"POST /api/v1/tx",
+		handler.SignTx,
+	)
 
 	addr := fmt.Sprintf(
 		"%s:%d",

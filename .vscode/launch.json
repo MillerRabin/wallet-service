@@ -10,8 +10,8 @@
       "cwd": "${workspaceFolder}",
       "env": {
         "CGO_ENABLED": "1",
-        "CGO_CFLAGS": "-I${workspaceFolder}/.trustwallet-core/include",
-        "CGO_LDFLAGS": "-L${workspaceFolder}/.trustwallet-core/build -L${workspaceFolder}/.trustwallet-core/build/local/lib -L${workspaceFolder}/.trustwallet-core/build/trezor-crypto -lTrustWalletCore -lwallet_core_rs -lTrezorCrypto -lprotobuf -lprotobuf-lite -lstdc++ -lpthread -ldl -lm"
+        "CGO_CFLAGS": "-I${workspaceFolder}/deps/trustwalletcore/include",
+        "CGO_LDFLAGS": "-L${workspaceFolder}/deps/trustwalletcore/build -L${workspaceFolder}/deps/trustwalletcore/build/local/lib -L${workspaceFolder}/deps/trustwalletcore/build/trezor-crypto -lTrustWalletCore -lwallet_core_rs -lTrezorCrypto -lprotobuf -lprotobuf-lite -lstdc++ -lpthread -ldl -lm"
       }
     }
   ]
