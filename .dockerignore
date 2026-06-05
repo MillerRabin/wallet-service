@@ -1,0 +1,15 @@
+deps/
+.git/
+
+bin/
+tmp/
+
+coverage.out
+*.log
+
+.idea/
+.vscode/
+
+Dockerfile
+docker-compose.yml
+config.json

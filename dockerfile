@@ -20,6 +20,7 @@ ENV CGO_ENABLED=1
 
 COPY --from=walletcore /wallet-core/include /opt/wallet-core/include
 COPY --from=walletcore /wallet-core/build /opt/wallet-core/build
+COPY --from=walletcore /wallet-core/samples/go /opt/wallet-core/samples/go
 
 ENV CGO_CFLAGS="-I/opt/wallet-core/include"
 
@@ -42,9 +43,13 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
+
+RUN go mod edit -replace=tw=/opt/wallet-core/samples/go
 RUN go mod download
 
 COPY . .
+
+RUN go mod edit -replace=tw=/opt/wallet-core/samples/go
 
 RUN go build \
   -ldflags="-s -w" \
@@ -59,6 +64,8 @@ FROM debian:trixie-slim
 RUN apt-get update && apt-get install -y \
   libstdc++6 \
   && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
 
 COPY --from=builder \
   /out/wallet-service \

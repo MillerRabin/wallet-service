@@ -1,13 +1,15 @@
 TRUSTWALLETCORE_IMAGE=trustwalletcore
 TRUSTWALLETCORE_DIR=deps/trustwalletcore
 PROJECT_ROOT := $(PWD)
+DOCKER_IMAGE=wallet-service
+DOCKER_CONTAINER=wallet-service
 
-CGO_CFLAGS := -I$(PROJECT_ROOT)/deps/trustwalletcore/include
+CGO_CFLAGS := -I$(PROJECT_ROOT)/$(TRUSTWALLETCORE_DIR)/include
 
 CGO_LDFLAGS := \
--L$(PROJECT_ROOT)/deps/trustwalletcore/build \
--L$(PROJECT_ROOT)/deps/trustwalletcore/build/local/lib \
--L$(PROJECT_ROOT)/deps/trustwalletcore/build/trezor-crypto \
+-L$(PROJECT_ROOT)/$(TRUSTWALLETCORE_DIR)/build \
+-L$(PROJECT_ROOT)/$(TRUSTWALLETCORE_DIR)/build/local/lib \
+-L$(PROJECT_ROOT)/$(TRUSTWALLETCORE_DIR)/build/trezor-crypto \
 -lTrustWalletCore \
 -lwallet_core_rs \
 -lTrezorCrypto \
@@ -38,8 +40,8 @@ install:
 	rm -rf internal/proto
 	mkdir -p internal/proto
 
-	cp -R deps/trustwalletcore/samples/go/protos/common internal/proto/
-	cp -R deps/trustwalletcore/samples/go/protos/ethereum internal/proto/
+	cp -R $(TRUSTWALLETCORE_DIR)/samples/go/protos/common internal/proto/
+	cp -R $(TRUSTWALLETCORE_DIR)/samples/go/protos/ethereum internal/proto/
 
 	sed -i \
 		's|tw/protos/common|wallet-service/internal/proto/common|g' \
@@ -78,3 +80,22 @@ vet:
 .PHONY: tidy
 tidy:
 	go mod tidy
+
+.PHONY: docker-build
+docker-build:
+	docker build \
+		-t $(DOCKER_IMAGE) \
+		.
+
+.PHONY: docker-run
+docker-run:
+	docker run \
+		--rm \
+		--name $(DOCKER_CONTAINER) \
+		-p 8000:8000 \
+		-v $(PROJECT_ROOT)/config.json:/app/config.json:ro \
+		$(DOCKER_IMAGE)
+
+.PHONY: docker-stop
+docker-stop:
+	docker stop $(DOCKER_CONTAINER)
