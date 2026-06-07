@@ -47,6 +47,8 @@ install:
 		's|tw/protos/common|wallet-service/internal/proto/common|g' \
 		internal/proto/ethereum/Ethereum.pb.go
 
+	go mod download
+
 .PHONY: build
 build:
 	go build \
